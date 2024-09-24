@@ -93,9 +93,15 @@ new_bios = bios.copy()
 
 new_bios["born_year"] = new_bios["born_date"].str.split("-").str[0] #Use specific data from a column
 
-new_bios.to_csv(r'./data/new_bios')
+#new_bios.to_csv(r'./data/new_bios') save locally as csv
 
 #print(new_bios["born_year"].head())
+
+#Using a lambda function to create a column. Setting conditions for values in column and handling NaN values with pd.isna
+new_bios["century_born"] = new_bios["born_year"].apply(lambda x: 'unknonw' if pd.isna(x) else('19th' if int(x) < 1900 else( '20th' if int(x) < 2000 else '21st')))
+
+print(new_bios.head())
+
 
 
 
